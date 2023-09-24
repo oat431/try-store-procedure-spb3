@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import panomete.practice.storepro.dto.RateType;
 import panomete.practice.storepro.dto.RentalDto;
+import panomete.practice.storepro.exception.ExceptionMessageDto;
 import panomete.practice.storepro.service.RentalService;
 
 import java.util.List;
@@ -44,18 +46,29 @@ public class RentalController {
     }
 
     @Operation(summary = "Get top 10 rentals by rate")
-    @ApiResponse(
-            responseCode = "200",
-            description = "Successful Operation",
-            content = {
-                    @Content(
-                            mediaType = "application/json",
-                            array = @ArraySchema(
-                                    schema = @Schema(implementation = RentalDto.class)
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Successful Operation",
+                    content = {
+                            @Content(
+                                    mediaType = "application/json",
+                                    array = @ArraySchema(
+                                            schema = @Schema(implementation = RentalDto.class)
+                                    )
                             )
+                    }
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Rate might be out of range",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = ExceptionMessageDto.class)
                     )
-            }
-    )
+            )
+    })
+
     @GetMapping("/top10")
     public ResponseEntity<List<RentalDto>> getTop10RentalsByRate(
             @RequestParam(name = "rate") RateType rate
