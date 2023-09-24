@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface RentalJDBCRepository {
     List<RentalDto> getTop10Rentals();
+    List<RentalDto> getTop10Rentals(String rate);
 }

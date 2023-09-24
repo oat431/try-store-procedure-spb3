@@ -2,6 +2,8 @@ package panomete.practice.storepro.repository;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 import panomete.practice.storepro.dto.RentalDto;
 
@@ -33,7 +35,20 @@ public class RentalJDBCRepositoryImpl implements RentalJDBCRepository {
         sql.append("   release_year, ");
         sql.append("   rental_rate ");
         sql.append("from ");
-        sql.append("top_rate_r_flim()");
+        sql.append("top_rate_r_film()");
+        return jdbcTemplate.query(sql.toString(), RentalJDBCRepositoryImpl::mapRowToRentalDto);
+    }
+
+    @Override
+    public List<RentalDto> getTop10Rentals(String rate) {
+        StringBuilder sql = new StringBuilder();
+        sql.append("select ");
+        sql.append("   title, ");
+        sql.append("   description, ");
+        sql.append("   release_year, ");
+        sql.append("   rental_rate ");
+        sql.append("from ");
+        sql.append("top_10_film_by_rate('" + rate + "')");
         return jdbcTemplate.query(sql.toString(), RentalJDBCRepositoryImpl::mapRowToRentalDto);
     }
 }
