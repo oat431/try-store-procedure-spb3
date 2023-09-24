@@ -27,3 +27,7 @@ springdoc:
     try-it-out-enabled: true
     tags-sorter: alpha
     filter: true
+
+server:
+  error:
+    include-stacktrace: never
