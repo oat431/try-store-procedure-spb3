@@ -51,4 +51,11 @@ public class RentalJDBCRepositoryImpl implements RentalJDBCRepository {
         sql.append("top_10_film_by_rate('" + rate + "')");
         return jdbcTemplate.query(sql.toString(), RentalJDBCRepositoryImpl::mapRowToRentalDto);
     }
+
+    @Override
+    public List<String> getAllRating() {
+        StringBuilder sql = new StringBuilder();
+        sql.append("select distinct rating from film");
+        return jdbcTemplate.queryForList(sql.toString(), String.class);
+    }
 }

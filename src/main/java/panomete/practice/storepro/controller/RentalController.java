@@ -29,4 +29,9 @@ public class RentalController {
     ) {
         return ResponseEntity.ok(rentalService.getTop10Rentals(rate));
     }
+
+    @GetMapping("/rating")
+    public ResponseEntity<List<String>> getAllRating() {
+        return ResponseEntity.ok(rentalService.getAllRating());
+    }
 }

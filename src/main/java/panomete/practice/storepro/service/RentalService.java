@@ -8,4 +8,6 @@ import java.util.List;
 public interface RentalService {
     List<RentalDto> getTop10Rentals();
     List<RentalDto> getTop10Rentals(RateType rate);
+
+    List<String> getAllRating();
 }

@@ -21,4 +21,9 @@ public class RentalServiceImpl implements RentalService {
     public List<RentalDto> getTop10Rentals(RateType rate) {
         return rentalJDBCRepository.getTop10Rentals(rate.getRate());
     }
+
+    @Override
+    public List<String> getAllRating() {
+        return rentalJDBCRepository.getAllRating();
+    }
 }
