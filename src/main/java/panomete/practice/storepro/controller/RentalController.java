@@ -21,11 +21,14 @@ import panomete.practice.storepro.service.RentalService;
 import java.util.List;
 
 @Controller
-@RequiredArgsConstructor
 @RequestMapping("/api/v1/rentals")
 @Tag(name = "Rental API", description = "All of the Rental API")
 public class RentalController {
-    final RentalService rentalService;
+
+    private final RentalService rentalService;
+    public RentalController(RentalService rentalService) {
+        this.rentalService = rentalService;
+    }
 
     @Operation(summary = "Get top 10 rentals")
     @ApiResponse(
